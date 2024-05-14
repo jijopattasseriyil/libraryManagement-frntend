@@ -1,0 +1,27 @@
+.admindashspan{
+    color: red;
+}
+
+table td{
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+table th{
+    padding-bottom: 10px;
+}
+
+.spinner{
+      position: absolute;
+      left: 50%;
+      top: 70%;
+
+}
+.tableBackgroundDiv{
+    height: 350p ;
+    width: 100%;
+    color: white ;
+    background-color :#4d4948;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    overflow-y: scroll;
+}

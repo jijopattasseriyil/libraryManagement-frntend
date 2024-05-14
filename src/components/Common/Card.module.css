@@ -1,0 +1,18 @@
+.card{
+    width: 300px;
+    height: 100px;
+    color: white;
+    background-color: #4d4948;
+    border-radius: 20px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+  }
+  .cardAns{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:35px;
+    height:35px;
+    background-color:#f65867;
+    border-radius:20px;
+  }
