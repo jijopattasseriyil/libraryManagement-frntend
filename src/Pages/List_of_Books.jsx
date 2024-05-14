@@ -3,7 +3,6 @@ import Header from "../components/Header";
 import List_of_BooksStyle from "./List_of_Books.module.css";
 import Cards from "../components/Cards";
 import { Col, Row } from "react-bootstrap";
-import Dropdown from 'react-bootstrap/Dropdown';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, } from "@fortawesome/free-solid-svg-icons";
 import Button from 'react-bootstrap/Button';
@@ -11,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { getUploadedBookApi } from '../services/AllApis';
 import { useEffect, useState } from 'react';
 
-const dropDownLists=["Novels","Fantasy","Romance","Biography/Autobiography","Chrime Thriller","Travel","Cooking/Food","History","Encyclopedias"]
+// const dropDownLists=["Novels","Fantasy","Romance","Biography/Autobiography","Chrime Thriller","Travel","Cooking/Food","History","Encyclopedias"]
 function List_of_Books() {
 
   const navgivate = useNavigate()
@@ -19,49 +18,83 @@ function List_of_Books() {
 
   const [availableBooksData,setAvailableBooksData] = useState([])
 
-  const[filteredbook,setFilteredBooks]=useState(availableBooksData);
+  // const[filteredbook,setFilteredBooks]=useState();
 
-  const getBook = async() =>{
-    try{
-      const response = await getUploadedBookApi();
-          console.log("hERE");
-      if(response.status!=200 ){
-        throw new Error("SomeThing Went Wrong")
-      } 
-      console.log("Here below throw");
-      setAvailableBooksData(response.data);
-      setFilteredBooks(response.data)
+  const [filteredbookCriteria, setFilteredBooksCriteria] = useState("");
 
+  const[searchWords,setSearchWord]=useState("");
 
-    }
-    catch(error){
-      console.log(error);
-          alert(error);
-    }
-      // console.log(response.data);
-  }
+  // const getBook = async() =>{
+  //   try{
+  //     const response = await getUploadedBookApi();
+  //         console.log("hERE");
+  //     if(response.status!=200 ){
+  //       throw new Error("SomeThing Went Wrong")
+  //     } 
+  //     console.log("Here below throw");
+  //     setAvailableBooksData(response.data);
+  //     // setFilteredBooks(response.data)  
 
 
+  //   }
+  //   catch(error){
+  //     console.log(error);
+  //         alert(error);
+  //   }
+  //     // console.log(response.data);
+  // }
 
-  useEffect(()=>{
-      getBook();
-  },[])
+
+
+  // useEffect(()=>{
+  //     getBook();
+  // },[])
+
+  useEffect(() => {
+    const getBook = async () => {
+      try {
+        const response = await getUploadedBookApi();
+        if (response.status != 200) {
+          throw new Error("SomeThing Went Wrong");
+        }
+        setAvailableBooksData(response.data);
+        // setFilteredBooks(response.data)
+      } catch (error) {
+        console.log(error);
+        alert(error);
+      }
+    };
+
+    getBook();
+  }, []);
  
   console.log(availableBooksData,"availableBooksData");
-  console.log(filteredbook,"filteredbook");
+  // console.log(filteredbook,"filteredbook");
 
   const backtoHome = ()=>{
     navgivate('/user')
   }
 
-  const getBookGenere=(e)=>{
-       
-        setFilteredBooks((prev)=>{
-            return availableBooksData.filter((prevBook)=>{
-              return prevBook.genre==e.target.value
-            })
-        })
-  } 
+  const getBookGenere = (e) => {
+    setFilteredBooksCriteria(e.target.value);
+  };
+
+  let filteredData = availableBooksData.filter((availableBookData) => {
+    return filteredbookCriteria === ""
+      ? availableBookData
+      : availableBookData.genre === filteredbookCriteria;
+  });
+    console.log(filteredData, "filteredData");
+
+  const getSearchDetails=(e)=>{
+    setSearchWord(e.target.value);
+    filteredData=availableBooksData.filter((availableBookData) => {
+      return e.target.value === ""
+        ? availableBookData
+        : availableBookData.title.startsWith(e.target.value);
+    });
+    console.log(filteredData);
+  }
   return (
     <>
       <Header />
@@ -119,16 +152,23 @@ function List_of_Books() {
            </div>
              <div className="col-1"></div>
              <div className="col-10">
-               <Row className="w-100 ">
-               {availableBooksData?.length>0?
-               filteredbook.map((item)=>(
-                <Col sm={12} md={6} lg={3} className="mt-3">
-                      <Cards displayCard={item}/>
-                  </Col>  ))
-          :
-          <p className='mt-5 text-warning'>No Books Uploaded Yet..</p>
-          }              
-               </Row>
+             <Row className="w-100 ">
+              {filteredData?.length > 0 ? (
+                filteredData.map((item) => (
+                  <Col
+                    sm={12}
+                    md={6}
+                    lg={3}
+                    className="mt-3"
+                    key={filteredData.id}
+                  >
+                    <Cards displayCard={item} />
+                  </Col>
+                ))
+              ) : (
+                <p className="mt-5 text-warning">No Books Uploaded Yet..</p>
+              )}
+            </Row>
            
              </div>
              
