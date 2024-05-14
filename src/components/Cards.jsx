@@ -2,7 +2,9 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import {addUserBookApi, adduserWishlistApi, } from '../services/AllApis'
 
-
+// React Toastify
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function Cards({displayCard}) {
 
   const userBookHistory = async () =>{
@@ -19,21 +21,40 @@ function Cards({displayCard}) {
           timeStamp,
           userId
         }
-    const response = await addUserBookApi(reqBody)
-    console.log(response);
+        try{
+          const response = await addUserBookApi(reqBody);
+          if(response.status!==201){
+            throw new Error("Somthing Went Wrong")
+          }
+          toast("Book Added Successfully")
+          console.log(response);
+
+        }
+        catch(error){
+             toast("Somthing Went Wrong")
+        }
   } 
 
   //api for wishlist
-  const userWishlistHistory = async () =>{
-    let title = displayCard?.title
-    let userId = localStorage.getItem(`userId`)
+  const userWishlistHistory = async () => {
+    let title = displayCard?.title;
+    let userId = localStorage.getItem(`userId`);
     let reqBody = {
       title,
-      userId
+      userId,
+    };
+    try {
+      const response = await adduserWishlistApi(reqBody);
+      console.log(response);
+      if (response.request.status >= 400) {
+        throw new Error("Something went Wrong");
+      }
+      console.log(response,"Here");
+      toast("Book Added to wishlist");
+    } catch (error) {
+      toast("Something went Wrong");
     }
-    const response = await adduserWishlistApi(reqBody)
-    console.log(response);
-  }
+  };
 
  
   
@@ -51,6 +72,17 @@ function Cards({displayCard}) {
               <Button variant="warning" className='ms-2' onClick={userWishlistHistory}>Wishlist</Button>
             </Card.Body>
           </Card> 
+          <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHovertheme="light"
+      />
     </div>
   )
 }
