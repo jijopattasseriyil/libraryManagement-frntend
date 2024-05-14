@@ -58,3 +58,8 @@ export const getUserWishlistApi = async(userId) =>{
 export const searchBookapi = async()=>{
    return await commonAPI('GET',`${baseURL}/books`,'')
 }
+
+//api for adding user or admin
+export const addMemberApi = async(reqBody) =>{
+   return await commonAPI('POST',`${baseURL}/login`,reqBody)
+}

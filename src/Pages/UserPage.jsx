@@ -44,7 +44,7 @@ function UserPage() {
             try{
                 const count = await getUserWishlistApi(userId)
                  setWishlistCount(count.data?.length) 
-               
+                 console.log(count);
             }
             catch(error){
                 console.log(error);
