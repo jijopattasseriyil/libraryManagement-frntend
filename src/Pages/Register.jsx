@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Input from "../components/Common/Input";
 import RegisterpageStyle from "./Register.module.css";
+import { useState } from "react";
 
 function Register() {
 
@@ -8,9 +9,21 @@ function Register() {
 
   const register = ()=>{
     gotoLoginpage('/')
+    handleUpload()
   }
   
-
+  const [userDetails,setUserDetails] = useState({
+    name:"",
+    role:"",
+    email:"",
+    number:"",
+    userName:"",
+    userPassword:""
+  })
+  console.log(userDetails);
+  const handleUpload = async () => {
+    console.log(userDetails);
+  }
   return (
     <>
       <div className={`${RegisterpageStyle.registerStyle}`}>
@@ -21,12 +34,16 @@ function Register() {
             <h6>Name</h6>
             <div className={RegisterpageStyle.inputDiv}>
               <div>
-                <Input placeholder="Enter Your First Name" />
-                <p>First Name</p>
+                <Input type="text" placeholder="Enter Your First Name" value={userDetails.name} onChange={(e)=>setUserDetails({...userDetails,name:e.target.value})}/>
+                <p>Name</p>
               </div>
               <div>
-                <Input placeholder="Enter Your Last Name" />
-                <p>Last Name</p>
+              <select className="form-control rounded" value={userDetails.role} style={{width:'270px',height:'33px'}} onChange={(e)=>setUserDetails({...userDetails,role:e.target.value})} >
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+              </select>
+
+                <p>Role</p>
               </div>
             </div>
           </div>
@@ -35,12 +52,12 @@ function Register() {
             <div className={RegisterpageStyle.inputDiv}>
               <div>
                 <h6>Email</h6>
-                <Input placeholder="Enter Your Email" />
+                <Input type="email" placeholder="Enter Your Email" name="email" value={userDetails.email} onChange={(e)=>setUserDetails({...userDetails,email:e.target.value})}/>
                 <p>example@example.com</p>
               </div>
               <div>
                 <h6>Phone Number</h6>
-                <Input placeholder="Enter Your First Name" />
+                <Input type="number" placeholder="Enter Your First Name" name="number" value={userDetails.number} onChange={(e)=>setUserDetails({...userDetails,number:e.target.value})}/>
                 <p>Please enter a valid phone number.</p>
               </div>
             </div>
@@ -50,11 +67,11 @@ function Register() {
             <div className={RegisterpageStyle.inputDiv}>
               <div>
                 <h6>UserName</h6>
-                <Input placeholder="Please Enter a UserName" />
+                <Input type="text" value={userDetails.userName} placeholder="Please Enter a UserName" name="username" onChange={(e)=>setUserDetails({...userDetails,userName:e.target.value})}/>
               </div>
               <div>
-                <h6>User Password</h6>
-                <Input placeholder="Please Enter a Password" />
+                <h6>UserPassword</h6>
+                <Input type="passeord" value={userDetails.userPassword} placeholder="Please Enter a Password" name="password" onChange={(e)=>setUserDetails({...userDetails,userPassword:e.target.value})}/>
               </div>
             </div>
           </div>

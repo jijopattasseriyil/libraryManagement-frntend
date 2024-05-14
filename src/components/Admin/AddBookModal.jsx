@@ -80,7 +80,7 @@ const AddBookModal = forwardRef(function AddBookModal(
             <h6 className="mt-2 text-light">Enter The Title</h6>
             <input
               type="text"
-              value={bookDetails.title || ''}
+              value={bookDetails.title}
               className="rounded form-control w-75"
               style={{ marginLeft: "70px" }}
               placeholder="Enter the title of the book"
@@ -94,7 +94,6 @@ const AddBookModal = forwardRef(function AddBookModal(
             <h6 className="mt-2 text-light">Enter The Author</h6>
             <input
               type="text"
-              autocomplete="off"
               value={bookDetails.author}
               className="rounded form-control w-75"
               style={{ marginLeft: "70px" }}
