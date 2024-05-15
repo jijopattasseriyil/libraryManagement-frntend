@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Input from "../components/Common/Input";
 import RegisterpageStyle from "./Register.module.css";
 import { useState } from "react";
-import { loginApiByUserName, registerUserApi } from "../services/AllApis";
+import { loginApiByUserName, registerUserApi,getRegisteredtaApi } from "../services/AllApis";
 
 function Register() {
 
@@ -25,7 +25,7 @@ function Register() {
   const errors={};
   
   const register = async()=>{
-    if(!userDetails.email){
+    if(!userDetails.name){
       errors.name="Name Cannot be Empty"
     }
     if(!userDetails.role){
@@ -53,14 +53,15 @@ function Register() {
     }
     else{
    console.log(userDetails.userName,userDetails.role);
-      const userExistResponse=await loginApiByUserName(userDetails.userName,userDetails.role);
+      const userExistResponse=await getRegisteredtaApi();
       console.log(userExistResponse);
-      if(userExistResponse.data.length==0){
-        const addResponse= await registerUserApi(userDetails) ;
-        alert("User Created")
+      if(userExistResponse.data.find((element)=>element.role ===userDetails.role || element.email ===userDetails.email || element.userName===userDetails.userName)){
+        alert("Member Alreday Exist")
       }
       else{
-        alert("User Name Alreday Exist")
+        const addResponse= await registerUserApi(userDetails) ;
+        alert("Member Created")
+        gotoLoginpage('/')
       }
     }
     
@@ -95,7 +96,8 @@ function Register() {
                 {formErrors?.name  && <p>{formErrors.name}</p>}
               </div>
               <div>
-              <select className="form-control rounded" value={userDetails.role} style={{width:'270px',height:'33px'}} onChange={(e)=>setUserDetails({...userDetails,role:e.target.value})} >
+              <select className="form-control rounded" value={userDetails.role} style={{width:'250px',height:'35px'}} onChange={(e)=>setUserDetails({...userDetails,role:e.target.value})} >
+                <option value="" selected disabled>Select One</option>
                 <option value="admin">Admin</option>
                 <option value="user">User</option>
               </select>
@@ -114,7 +116,7 @@ function Register() {
               </div>
               <div>
                 <h6>Phone Number</h6>
-                <Input type="number" placeholder="Enter Your First Name" name="number" value={userDetails.number} onChange={(e)=>setUserDetails({...userDetails,number:e.target.value})}/>
+                <Input type="text" placeholder="Enter Your Phone Number" name="number" value={userDetails.number} onChange={(e)=>setUserDetails({...userDetails,number:e.target.value})}/>
                 {formErrors?.phoneNumber  && <p>{formErrors.phoneNumber}</p>}
               </div>
             </div>
