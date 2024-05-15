@@ -2,15 +2,13 @@ import { useNavigate } from "react-router-dom";
 import Input from "../components/Common/Input";
 import RegisterpageStyle from "./Register.module.css";
 import { useState } from "react";
+import { loginApiByUserName, registerUserApi } from "../services/AllApis";
 
 function Register() {
 
   const gotoLoginpage = useNavigate()
 
-  const register = ()=>{
-    gotoLoginpage('/')
-    handleUpload()
-  }
+ 
   
   const [userDetails,setUserDetails] = useState({
     name:"",
@@ -20,10 +18,69 @@ function Register() {
     userName:"",
     userPassword:""
   })
+
+  const [formErrors,setErrors]=useState();
+
+
+  const errors={};
+  
+  const register = async()=>{
+    if(!userDetails.email){
+      errors.name="Name Cannot be Empty"
+    }
+    if(!userDetails.role){
+      errors.role="Role Cannot be Empty"
+    }
+    if(!userDetails.email){
+      errors.email="Email Cannot be Empty"
+    }
+    if(!userDetails.number){
+      errors.phoneNumber="Phone Number Cannot be Empty"
+    }
+    else if(!validateUserPhoneNumber(userDetails.number)){
+      errors.phoneNumber="Enter a Valid Phone Number"
+    }
+    if(!userDetails.userName){
+      errors.userName="userName  Cannot be Empty"
+    }
+    if(!userDetails.userPassword){
+      errors.userPassword="userPassword Cannot be Empty"
+    }
+    setErrors(errors);
+    console.log(Object.keys(errors).length);
+    if(Object.keys(errors).length!==0){
+         alert("Errors")
+    }
+    else{
+   console.log(userDetails.userName,userDetails.role);
+      const userExistResponse=await loginApiByUserName(userDetails.userName,userDetails.role);
+      console.log(userExistResponse);
+      if(userExistResponse.data.length==0){
+        const addResponse= await registerUserApi(userDetails) ;
+        alert("User Created")
+      }
+      else{
+        alert("User Name Alreday Exist")
+      }
+    }
+    
+  }
+
+  console.log(formErrors);
+  const validateUserPhoneNumber=(phoneNumber)=>{
+      const regexPhoneNumber=new RegExp("^[0-9]{10}");
+      console.log(regexPhoneNumber.test(phoneNumber));
+      return regexPhoneNumber.test(phoneNumber)
+  }
+  const validateUserEmail=(phoneNumber)=>{
+    const regexPhoneNumber=new RegExp("^[0-9]{10}");
+    console.log(regexPhoneNumber.test(phoneNumber));
+    return regexPhoneNumber.test(phoneNumber)
+}
   console.log(userDetails);
   const handleUpload = async () => {
-    console.log(userDetails);
   }
+  console.log(userDetails);
   return (
     <>
       <div className={`${RegisterpageStyle.registerStyle}`}>
@@ -35,7 +92,7 @@ function Register() {
             <div className={RegisterpageStyle.inputDiv}>
               <div>
                 <Input type="text" placeholder="Enter Your First Name" value={userDetails.name} onChange={(e)=>setUserDetails({...userDetails,name:e.target.value})}/>
-                <p>Name</p>
+                {formErrors?.name  && <p>{formErrors.name}</p>}
               </div>
               <div>
               <select className="form-control rounded" value={userDetails.role} style={{width:'270px',height:'33px'}} onChange={(e)=>setUserDetails({...userDetails,role:e.target.value})} >
@@ -43,7 +100,7 @@ function Register() {
                 <option value="user">User</option>
               </select>
 
-                <p>Role</p>
+              {formErrors?.role  && <p>{formErrors.role}</p>}
               </div>
             </div>
           </div>
@@ -53,12 +110,12 @@ function Register() {
               <div>
                 <h6>Email</h6>
                 <Input type="email" placeholder="Enter Your Email" name="email" value={userDetails.email} onChange={(e)=>setUserDetails({...userDetails,email:e.target.value})}/>
-                <p>example@example.com</p>
+                {formErrors?.email  && <p>{formErrors.email}</p>}
               </div>
               <div>
                 <h6>Phone Number</h6>
                 <Input type="number" placeholder="Enter Your First Name" name="number" value={userDetails.number} onChange={(e)=>setUserDetails({...userDetails,number:e.target.value})}/>
-                <p>Please enter a valid phone number.</p>
+                {formErrors?.phoneNumber  && <p>{formErrors.phoneNumber}</p>}
               </div>
             </div>
           </div>
@@ -68,10 +125,14 @@ function Register() {
               <div>
                 <h6>UserName</h6>
                 <Input type="text" value={userDetails.userName} placeholder="Please Enter a UserName" name="username" onChange={(e)=>setUserDetails({...userDetails,userName:e.target.value})}/>
+                {formErrors?.userName  && <p>{formErrors.userName}</p>}
+
               </div>
               <div>
                 <h6>UserPassword</h6>
                 <Input type="passeord" value={userDetails.userPassword} placeholder="Please Enter a Password" name="password" onChange={(e)=>setUserDetails({...userDetails,userPassword:e.target.value})}/>
+                {formErrors?.userPassword  && <p>{formErrors.userPassword}</p>}
+
               </div>
             </div>
           </div>

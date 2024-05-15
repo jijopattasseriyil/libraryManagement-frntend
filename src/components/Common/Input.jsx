@@ -1,7 +1,7 @@
 
-const Input = ({placeholder}) => {
+const Input = ({placeholder,...reeminingProps}) => {
   return (
-       <input type="text"  placeholder={placeholder} size={30} className="py-1 form-control"/>
+       <input type="text" {...reeminingProps} placeholder={placeholder} size={30} className="py-1 form-control"/>
   )
 }
 

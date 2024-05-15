@@ -60,6 +60,6 @@ export const searchBookapi = async()=>{
 }
 
 //api for adding user or admin
-export const addMemberApi = async(reqBody) =>{
+export const registerUserApi = async(reqBody) =>{
    return await commonAPI('POST',`${baseURL}/login`,reqBody)
 }
