@@ -63,3 +63,8 @@ export const searchBookapi = async()=>{
 export const registerUserApi = async(reqBody) =>{
    return await commonAPI('POST',`${baseURL}/login`,reqBody)
 }
+
+//api for getting registered uder or admin
+export const getRegisteredtaApi = async() =>{
+   return await commonAPI('GET',`${baseURL}/login`,'')
+}

@@ -15,7 +15,9 @@ import Card from "../Common/Card";
 
 function AdminDashBoard({ getAllBooks, deleteData, isLoading,searchResults }) {
 
+
   const [userCount, setUserCount] = useState(0);
+  
 
   useEffect(() => {
     const getUserCount = async () => {
@@ -47,8 +49,6 @@ function AdminDashBoard({ getAllBooks, deleteData, isLoading,searchResults }) {
   console.log("AdminDash board re-rendered");
   console.log(searchResults,'results in admin dashboard');
 
-  
- 
   
 
   return (
