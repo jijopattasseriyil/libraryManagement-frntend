@@ -9,6 +9,8 @@ import { Spinner } from "react-bootstrap";
 
 const AdminPage = () => {
   const [getAllBooks, setAllBooks] = useState([]);
+  // search state 
+  const [searchResults,setSearchResults] = useState([])
 
   const[isLoading,setIsLoading]=useState(false);
 
@@ -55,9 +57,9 @@ const AdminPage = () => {
   return (
     <div className={`${List_of_BooksStyle.image} `}>
       <Header />
-      <AdminNavBar handleAddNewBook={handleAddNewBook} />
+      <AdminNavBar handleAddNewBook={handleAddNewBook} setSearchResults={setSearchResults}/>
        
-        <AdminDashBoard getAllBooks={getAllBooks} deleteData={deleteData} isLoading={isLoading}/>
+        <AdminDashBoard getAllBooks={getAllBooks} deleteData={deleteData} isLoading={isLoading} searchResults={searchResults}/>
 
       <Footer />
     </div>
