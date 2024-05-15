@@ -6,8 +6,10 @@ import { useRef, useState} from "react";
 import LogoutModal from "../LogoutModal";
 import AddBookModal from "./AddBookModal";
 import { searchBookapi } from "../../services/AllApis";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
-const AdminNavBar = ({handleAddNewBook}) => {
+const AdminNavBar = ({handleAddNewBook,setSearchResults}) => {
   const [inputSearch,setInputSearch] = useState("")
 
   const modal = useRef();
@@ -31,6 +33,10 @@ const AdminNavBar = ({handleAddNewBook}) => {
 
 console.log(inputSearch);
 
+  const handleChange = (event)=>{
+    setInputSearch(event.target.value)
+  }
+
   const handleSearch = async() =>{
     const response = await searchBookapi()
     console.log(response.data);
@@ -39,6 +45,13 @@ console.log(inputSearch);
     const searchItem = books.filter(book=> book.title.toLowerCase().startsWith(inputSearch.toLowerCase()));
     console.log(searchItem);
 
+    if(searchItem.length==0){
+      toast.error('No Book Found')
+    }else{
+      setSearchResults(searchItem)
+    }
+    setInputSearch("")
+    
   }
 
 
@@ -52,9 +65,10 @@ console.log(inputSearch);
           <div className={AdminNavrBarStyle.searchSection}>
             <input
               type="text"
-              className=" text-black"
+              className="form-control text-black"
               placeholder="Search books"
-              onChange={(event)=>setInputSearch(event.target.value)}
+              onChange={handleChange}
+              value={inputSearch}
             />
             <FontAwesomeIcon
               icon={faMagnifyingGlass}
@@ -64,7 +78,7 @@ console.log(inputSearch);
           </div>
 
           <div>
-            <button className="px-3 py-1 text-white bg-primary h6 my-auto rounded" onClick={openAddModalHandler}>
+            <button className="px-3 py-1 text-white btn btn-primary h6 my-auto rounded" onClick={openAddModalHandler}>
               Add Book
             </button>
           </div>
@@ -77,7 +91,7 @@ console.log(inputSearch);
         <AddBookModal ref={addBookModalRef} hideAddBookModal={hideAddBookModal} handleAddNewBook={handleAddNewBook}/>
       </div>
 
-    
+      <ToastContainer theme='colored' position="top-center"  autoClose={2000}/>
     </>
   );
 };
