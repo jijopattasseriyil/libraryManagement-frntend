@@ -18,37 +18,11 @@ function List_of_Books() {
 
   const [availableBooksData,setAvailableBooksData] = useState([])
 
-  // const[filteredbook,setFilteredBooks]=useState();
-
   const [filteredbookCriteria, setFilteredBooksCriteria] = useState("");
 
   const[searchWords,setSearchWord]=useState("");
 
-  // const getBook = async() =>{
-  //   try{
-  //     const response = await getUploadedBookApi();
-  //         console.log("hERE");
-  //     if(response.status!=200 ){
-  //       throw new Error("SomeThing Went Wrong")
-  //     } 
-  //     console.log("Here below throw");
-  //     setAvailableBooksData(response.data);
-  //     // setFilteredBooks(response.data)  
 
-
-  //   }
-  //   catch(error){
-  //     console.log(error);
-  //         alert(error);
-  //   }
-  //     // console.log(response.data);
-  // }
-
-
-
-  // useEffect(()=>{
-  //     getBook();
-  // },[])
 
   useEffect(() => {
     const getBook = async () => {
@@ -58,7 +32,6 @@ function List_of_Books() {
           throw new Error("SomeThing Went Wrong");
         }
         setAvailableBooksData(response.data);
-        // setFilteredBooks(response.data)
       } catch (error) {
         console.log(error);
         alert(error);
@@ -69,7 +42,6 @@ function List_of_Books() {
   }, []);
  
   console.log(availableBooksData,"availableBooksData");
-  // console.log(filteredbook,"filteredbook");
 
   const backtoHome = ()=>{
     navgivate('/user')
@@ -147,9 +119,6 @@ function List_of_Books() {
 
 
         <div className="row" style={{paddingInline:"10px" , paddingBottom:"10px"}}>
-           <div className="row">
-           <h4 className="text-light">Category Name</h4>
-           </div>
              <div className="col-1"></div>
              <div className="col-10">
              <Row className="w-100 ">
