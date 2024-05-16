@@ -58,7 +58,7 @@ function AdminDashBoard({ getAllBooks, deleteData, isLoading,searchResults,showF
   return (
     <>
       <div className="ms-3">
-        <LoggedInUserInfoTimeComponent userName={getUserName} />
+        <LoggedInUserInfoTimeComponent userName={getUserName.toUpperCase()} />
 
         <div className="row mb-5 mt-5">
           <div className="col-md-7 ms-3">

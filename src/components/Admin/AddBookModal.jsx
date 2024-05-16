@@ -1,6 +1,7 @@
 import { forwardRef, useState } from "react";
 import { addBookApi } from "../../services/AllApis";
 import { Dropdown } from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
 
 const AddBookModal = forwardRef(function AddBookModal(
   { hideAddBookModal, handleAddNewBook },
@@ -25,7 +26,7 @@ const AddBookModal = forwardRef(function AddBookModal(
       console.log(response.data,"To Trigger data update");
       handleAddNewBook(response.data);
       if (response.status >= 200 && response.status < 300) {
-        alert("Book details uploaded successfully");
+        toast.success("Book details uploaded successfully");
         setBookDetails({
           title: "",
           author: "",
@@ -141,6 +142,8 @@ const AddBookModal = forwardRef(function AddBookModal(
           </button>
         </div>
       </div>
+      <ToastContainer theme='colored' position="top-center"  autoClose={2000}/>
+      
     </dialog>
   );
 });
