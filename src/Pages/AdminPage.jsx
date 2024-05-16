@@ -19,6 +19,13 @@ const AdminPage = () => {
 
   const[isLoading,setIsLoading]=useState(false);
 
+
+
+
+  function showFullData(){
+    setSearchResults([])
+  }
+
    const navigate=useNavigate();
 
   useEffect(() => {
@@ -67,9 +74,9 @@ const AdminPage = () => {
   return (
     <div className={`${List_of_BooksStyle.image} `}>
       <Header />
-      <AdminNavBar handleAddNewBook={handleAddNewBook} setSearchResults={setSearchResults}/>
+      <AdminNavBar handleAddNewBook={handleAddNewBook} setSearchResults={setSearchResults} />
        
-        <AdminDashBoard getAllBooks={getAllBooks} deleteData={deleteData} isLoading={isLoading} searchResults={searchResults}/>
+        <AdminDashBoard getAllBooks={getAllBooks} deleteData={deleteData} isLoading={isLoading} searchResults={searchResults} showFullData={showFullData}/>
 
       <Footer />
     </div>

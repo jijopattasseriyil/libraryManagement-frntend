@@ -16,7 +16,7 @@ import Card from "../Common/Card";
 
 
 
-function AdminDashBoard({ getAllBooks, deleteData, isLoading,searchResults }) {
+function AdminDashBoard({ getAllBooks, deleteData, isLoading,searchResults,showFullData }) {
   
   const getUserName=localStorage.getItem("userName");
 
@@ -65,7 +65,7 @@ function AdminDashBoard({ getAllBooks, deleteData, isLoading,searchResults }) {
             <div className={AdminDashBoardStyles.tableBackgroundDiv}>
               <div className="me-3 d-flex align-items-center justify-content-between">
                 <h4 className="ms-3 pt-3">Book List</h4>
-                <button className="btn text-light"><FontAwesomeIcon icon={faRotate} size="lg"/></button>
+                <button className="btn text-light" onClick={showFullData}><FontAwesomeIcon icon={faRotate} size="lg"/></button>
               </div>
               <table className="ms-5 mt-4  position-relative" style={{ width: "90%"}}>
                 <thead>
