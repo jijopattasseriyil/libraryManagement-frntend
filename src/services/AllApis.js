@@ -68,3 +68,8 @@ export const registerUserApi = async(reqBody) =>{
 export const getRegisteredtaApi = async() =>{
    return await commonAPI('GET',`${baseURL}/login`,'')
 }
+
+//api for wishlist delete
+export const removeWishlist = async(userId,bookId)=>{
+   return await commonAPI('DELETE',`${baseURL}/userWishlist?userId=${userId}&bookId=${bookId}`,{})
+}

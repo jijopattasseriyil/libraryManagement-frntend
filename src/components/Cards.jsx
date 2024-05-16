@@ -5,6 +5,7 @@ import {addUserBookApi, adduserWishlistApi, } from '../services/AllApis'
 // React Toastify
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 function Cards({displayCard}) {
 
   const userBookHistory = async () =>{
@@ -39,10 +40,22 @@ function Cards({displayCard}) {
   const userWishlistHistory = async () => {
     let title = displayCard?.title;
     let userId = localStorage.getItem(`userId`);
+    let author = displayCard?.author
+    let imageLink = displayCard?.imageLink
+    let genre = displayCard?.genre
+    let bookId = displayCard?.id
     let reqBody = {
       title,
       userId,
+      author,
+      imageLink,
+      genre,
+      bookId
     };
+
+    // console.log(displayCard,"bookId");
+    console.log(bookId,"BookId");
+
     try {
       const response = await adduserWishlistApi(reqBody);
       console.log(response);
