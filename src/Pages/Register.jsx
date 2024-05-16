@@ -55,7 +55,7 @@ function Register() {
    console.log(userDetails.userName,userDetails.role);
       const userExistResponse=await getRegisteredtaApi();
       console.log(userExistResponse);
-      if(userExistResponse.data.find((element)=>element.role ===userDetails.role || element.email ===userDetails.email || element.userName===userDetails.userName)){
+      if(userExistResponse.data.find((element)=>element.role ===userDetails.role && element.email ===userDetails.email || element.userName===userDetails.userName)){
         alert("Member Alreday Exist")
       }
       else{
