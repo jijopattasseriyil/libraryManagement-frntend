@@ -13,8 +13,12 @@ import AdminDashBoardStyles from "./AdminDashBoard.module.css";
 
 import Card from "../Common/Card";
 
-function AdminDashBoard({ getAllBooks, deleteData, isLoading,searchResults }) {
 
+
+
+function AdminDashBoard({ getAllBooks, deleteData, isLoading,searchResults }) {
+  
+  const getUserName=localStorage.getItem("userName");
 
   const [userCount, setUserCount] = useState(0);
   
@@ -54,17 +58,11 @@ function AdminDashBoard({ getAllBooks, deleteData, isLoading,searchResults }) {
   return (
     <>
       <div className="ms-3">
-        <LoggedInUserInfoTimeComponent userName="Admin" />
+        <LoggedInUserInfoTimeComponent userName={getUserName} />
 
         <div className="row mb-5 mt-5">
           <div className="col-md-7 ms-3">
-            <div className={AdminDashBoardStyles.tableBackgroundDiv}
-              // style={{
-              //   height: "350px",
-              //   width: "100%",
-               
-              // }}
-            >
+            <div className={AdminDashBoardStyles.tableBackgroundDiv}>
               <div className="me-3 d-flex align-items-center justify-content-between">
                 <h4 className="ms-3 pt-3">Book List</h4>
                 <button className="btn text-light"><FontAwesomeIcon icon={faRotate} size="lg"/></button>
@@ -127,9 +125,6 @@ function AdminDashBoard({ getAllBooks, deleteData, isLoading,searchResults }) {
             <Card count={userCount} cardCategory="Total Users" iconType={faUserGroup}/>
 
             <Card count={getAllBooks?.length} cardCategory="Total Books " iconType={faBook}/>
-
-            <Card count={getAllBooks?.length} cardCategory="Borrowed Books" iconType={faBook}/>
-
 
           </div>
           <div className="col-md-1"></div>

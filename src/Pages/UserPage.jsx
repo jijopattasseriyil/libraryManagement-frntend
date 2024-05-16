@@ -20,7 +20,12 @@ import {
 import { ToastContainer } from "react-bootstrap";
 import { toast } from "react-toastify";
 
+
+
 function UserPage() {
+
+  const getUserName = localStorage.getItem("userName");
+  
   const naviagte = useNavigate();
 
   const userId = localStorage.getItem("userId");
@@ -59,24 +64,6 @@ function UserPage() {
     userWishlistCount();
   }, [userId]);
 
-  // const returnUserBooks=async(bookId)=>{
-  //     try{
-  //         const removeStatus= await returnUserBook(bookId);
-  //         console.log(removeStatus);
-  //         if(!removeStatus.ok){
-  //             throw new Error("Some Error Ocuured")
-  //         }
-  //         setUserBooks((prevUserBooks)=>{
-  //             const userBooks=[...prevUserBooks];
-  //             return userBooks.filter((userBook)=>userBook.id!==bookId)
-  //         })
-  //     }
-  //     catch(error){
-  //             console.log(error.message);
-  //     }
-
-  // }
-
   const returnUserBooks = async (bookId) => {
     try {
       const removeStatus = await returnUserBook(bookId);
@@ -84,7 +71,7 @@ function UserPage() {
       if (removeStatus.status !== 200) {
         throw new Error("Some Error Ocuured");
       }
-    //   alert("Book was Returned")
+      alert("Book was Returned")
       toast("Book was Returned");
       setUserBooks((prevUserBooks) => {
         const userBooks = [...prevUserBooks];
@@ -103,7 +90,7 @@ function UserPage() {
       <div className={`${List_of_BooksStyle.image} `}>
         <div className="ms-3 ">
           <div>
-            <NameTime userName="User" />
+            <NameTime userName={getUserName} />
             <Button variant="warning" className="mt-2" onClick={gotoLibrary}>
               Go to Library{" "}
               <FontAwesomeIcon
@@ -116,33 +103,7 @@ function UserPage() {
 
           <div className="row mt-5 ms-3">
             <div className="col-md-3">
-              <div
-                style={{
-                  width: "300px",
-                  height: "100px",
-                  color: "white",
-                  backgroundColor: "#4d4948",
-                  borderRadius: "20px",
-                  marginLeft: "10px",
-                  marginBottom: "20px",
-                }}
-              >
-                <div className="d-flex align-items-center justify-content-between px-3 py-1">
-                  <h4>1223</h4>
-                  <div
-                    className="d-flex align-items-center justify-content-center"
-                    style={{
-                      width: "35px",
-                      height: "35px",
-                      backgroundColor: "orange",
-                      borderRadius: "20px",
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faUserGroup} />
-                  </div>
-                </div>
-                <p className="mt-4 ms-3">Total Books</p>
-              </div>
+             
               <div
                 style={{
                   width: "300px",

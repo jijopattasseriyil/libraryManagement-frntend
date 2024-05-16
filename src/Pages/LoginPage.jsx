@@ -44,6 +44,7 @@ const LoginPage = () => {
 
       if (userLoginDetials.length != 0) {
         if (userLoginDetials[0].role) {
+          localStorage.setItem("userName",userLoginDetials[0].userName)
           localStorage.setItem('userId',userLoginDetials[0].id)
           nav(userLoginDetials[0].role);
         }
