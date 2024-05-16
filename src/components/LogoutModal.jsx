@@ -8,6 +8,8 @@ const LogoutModal = forwardRef(function LogoutModal({ hideModal }, ref) {
 
  const redirecttoLogin  = ()=>{
   backtoLogin('/')
+  localStorage.removeItem("userId")
+  localStorage.removeItem("userName")
  }
 
   return (

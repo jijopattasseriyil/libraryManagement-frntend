@@ -6,19 +6,7 @@ const AddBookModal = forwardRef(function AddBookModal(
   { hideAddBookModal, handleAddNewBook },
   ref
 ) {
-  const dropDownLists = [
-    "Novels",
-    "Fantasy",
-    "Romance",
-    "Biography/Autobiography",
-    "Chrime Thriller",
-    "Travel",
-    "Cooking/Food",
-    "History",
-    "Encyclopedias",
-  ];
   
-
   const [bookDetails, setBookDetails] = useState({
     title: "",
     author: "",

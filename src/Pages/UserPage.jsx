@@ -23,15 +23,17 @@ import { toast } from "react-toastify";
 
 
 function UserPage() {
-
-  const getUserName = localStorage.getItem("userName");
   
-  const naviagte = useNavigate();
+  const navigate = useNavigate();
 
   const userId = localStorage.getItem("userId");
+  
+  const getUserName = localStorage.getItem("userName");
+  
+  const role=localStorage.getItem("role")
 
   const gotoLibrary = () => {
-    naviagte("/list");
+    navigate("/list");
   };
 
   const [userbooks, setUserBooks] = useState([]);
@@ -83,6 +85,15 @@ function UserPage() {
       console.log(error.message);
     }
   };
+
+  
+  if(role!=='user')
+  {
+    toast.error("You Cannot Acces The Route")
+    navigate("/");
+   
+  } 
+
 
   return (
     <>
@@ -152,7 +163,7 @@ function UserPage() {
                       borderRadius: "20px",
                     }}
                   >
-                    <FontAwesomeIcon icon={faBook} style={{cursor:'pointer'}} onClick={()=>naviagte('/wishlist')}/>
+                    <FontAwesomeIcon icon={faBook} style={{cursor:'pointer'}} onClick={()=>navigate('/wishlist')}/>
                   </div>
                 </div>
                 <p className="mt-4 ms-3">Wishlested Books</p>
@@ -226,6 +237,7 @@ function UserPage() {
           </div>
         </div>
       </div>
+      
       <Footer />
     </>
   );

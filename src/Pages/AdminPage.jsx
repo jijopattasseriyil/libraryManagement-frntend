@@ -6,9 +6,12 @@ import Header from "../components/Header";
 import List_of_BooksStyle from "./List_of_Books.module.css";
 import { getUploadedBookApi } from "../services/AllApis";
 import { Spinner } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const AdminPage = () => {
+ 
 
+  const role=localStorage.getItem("role")
 
   const [getAllBooks, setAllBooks] = useState([]);
   // search state 
@@ -16,7 +19,7 @@ const AdminPage = () => {
 
   const[isLoading,setIsLoading]=useState(false);
 
-  console.log("Rendering admin Page");
+   const navigate=useNavigate();
 
   useEffect(() => {
     const getBookLists = async () => {
@@ -55,6 +58,11 @@ const AdminPage = () => {
   }
 
   console.log(getAllBooks, "Here");
+
+  if(role!=='admin')
+  {
+    navigate("/")
+  } 
 
   return (
     <div className={`${List_of_BooksStyle.image} `}>

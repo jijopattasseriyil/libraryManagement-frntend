@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 const LoginPage = () => {
   const nav = useNavigate();
 
+  localStorage.clear();
+
 
   const [errorDetails, setErrorDetails] = useState();
 
@@ -46,6 +48,7 @@ const LoginPage = () => {
         if (userLoginDetials[0].role) {
           localStorage.setItem("userName",userLoginDetials[0].userName)
           localStorage.setItem('userId',userLoginDetials[0].id)
+          localStorage.setItem("role",userLoginDetials[0].role)
           nav(userLoginDetials[0].role);
         }
       } else {
