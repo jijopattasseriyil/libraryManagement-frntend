@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 function Wishlist() {
   const [userWishListBook, setUserWishListBook] = useState([]);
-
+  const role = localStorage.getItem('role')
    const naviagte= useNavigate();
 
   useEffect(() => {
@@ -45,7 +45,9 @@ function Wishlist() {
     }
   };
 
-  
+  if(role !== 'user'){
+    naviagte('/')
+  }
 
  
   return (

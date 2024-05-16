@@ -166,7 +166,7 @@ function UserPage() {
                     <FontAwesomeIcon icon={faBook} style={{cursor:'pointer'}} onClick={()=>navigate('/wishlist')}/>
                   </div>
                 </div>
-                <p className="mt-4 ms-3">Wishlested Books</p>
+                <p className="mt-4 ms-3">Wishlisted Books</p>
               </div>
             </div>
             <div className="col-md-1"></div>

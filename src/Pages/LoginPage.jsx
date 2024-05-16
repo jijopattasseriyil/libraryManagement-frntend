@@ -112,7 +112,7 @@ const LoginPage = () => {
                 Password
               </label>
               <input
-                type="text"
+                type="password"
                 placeholder="Enter Your Password"
                 className="form-control"
                 name="userPassword"
